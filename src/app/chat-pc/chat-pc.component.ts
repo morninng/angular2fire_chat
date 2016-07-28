@@ -36,6 +36,7 @@ constructor(){};
 ngAfterViewInit(){};
 */
 
+
   comment_input : string;
   comment_limit_subject = new Rx.Subject<number>();
 
