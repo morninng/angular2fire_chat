@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import * as Rx from "rxjs/Rx"
+
+
+
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-//import { AngularFire, FirebaseListObservable } from './../../../node_modules/angularfire2/angularfire2';
+
+
 
 
 @Component({
@@ -11,14 +16,62 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 })
 
-export class ChatPcComponent implements OnInit {
+export class ChatPcComponent implements OnInit, AfterViewInit {
 
 
+/*
+ ブロックコメントを import文の横におくとエラーになるのでここに
+http://stackoverflow.com/questions/38586182/angular2-rc4-xhr-error-404-not-found-loading-traceur
+http://stackoverflow.com/questions/37179236/angular2-error-at-startup-of-the-app-http-localhost3000-traceur-404-not-fo
+
+import { Observable }     from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent'
+import 'rxjs/operator/map';
+import 'rxjs/operator/filter';
+http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filter-are-missing-from-a-form-inputs-obser
+*/
+
+/*
+constructor(){};
+ngAfterViewInit(){};
+*/
+
+  comment_input : string;
+
+ 
  items: FirebaseListObservable<any[]>;
   constructor( af: AngularFire ) {
-     this.items = af.database.list('items');
+     this.items = af.database.list('items', {
+      query: {
+        limitToLast:4
+      }
+     });
    }
-   
+ 
+  ngAfterViewInit(){
+    const comment_element = document.getElementById("chat_comment_input").getElementsByTagName("input")[0];
+    const comment_input$ = Rx.Observable.fromEvent(comment_element, "keyup")
+    .map((res: KeyboardEvent)=>{
+      console.log(res.keyCode);
+      return res.keyCode;}
+      )
+      .filter((value)=>{return value==13;})
+
+    comment_input$.subscribe(
+      (value)=>{
+        console.log(value);
+        console.log(this.comment_input);
+        this.items.push({name: this.comment_input});
+        this.comment_input = null;
+      },
+      (error)=>{
+        console.log(error)
+      },
+      ()=>{
+        console.log("completed")
+      }
+    );
+  }
 
   ngOnInit() {
   }
