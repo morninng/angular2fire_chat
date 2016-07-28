@@ -10,48 +10,41 @@
     <div class="box-body">
 
 
-    <div class = "direct-chat-messages" style="height:100px;">
-      <div class="direct-chat-msg">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-left">Yuta</span>
-        </div>
-        <img class="direct-chat-img" src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-1/p160x160/12341602_953593204721655_7227562974230394333_n.jpg?oh=c1e069b879fcc8ce9143d87654516c61&amp;oe=5814739C">
-        <div class="direct-chat-text">
-          message will be here  message will be here message will be here 
-        </div>
-      </div>
+      <div class = "direct-chat-messages" style="height:100px;">
 
-      <div class="direct-chat-msg right">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-right">Yuta</span>
-        </div>
-        <img class="direct-chat-img" src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-1/p160x160/12341602_953593204721655_7227562974230394333_n.jpg?oh=c1e069b879fcc8ce9143d87654516c61&amp;oe=5814739C">
-        <div class="direct-chat-text">
-          message will be here  message will be here message will be here 
-        </div>
-      </div>
+
+      <span *ngFor="let item of items_query | async">
+
+          <div class="direct-chat-msg">
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-name pull-left">{{item.name}}</span>
+            </div>
+            <img class="direct-chat-img" src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-1/p160x160/12341602_953593204721655_7227562974230394333_n.jpg?oh=c1e069b879fcc8ce9143d87654516c61&amp;oe=5814739C">
+            <div class="direct-chat-text">
+              {{item.body}}
+            </div>
+          </div>
+
+          <div class="direct-chat-msg right">
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-name pull-right">{{item.name}}</span>
+            </div>
+            <img class="direct-chat-img" src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-1/p160x160/12341602_953593204721655_7227562974230394333_n.jpg?oh=c1e069b879fcc8ce9143d87654516c61&amp;oe=5814739C">
+            <div class="direct-chat-text">
+              {{item.body}}
+            </div>
+          </div>
+      </span>
 
     </div>
 
     <div class="box-footer">
       <form>
-        <div class="input-group" style="display:block">
-          <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+        <div class="input-group" style="display:block" id="chat_comment_input">
+          <input type="text" name="message" placeholder="Type Message ..." class="form-control" [(ngModel)]="comment_input">
         </div>
       </form>
     </div>
-
-
-
-</div>
-
-<ul>
-  <li class="text" *ngFor="let item of items | async">
-    {{item.name}}
-  </li>
-</ul>
-<div id="chat_comment_input">
-  <input type="text" [(ngModel)]="comment_input">
 </div>
 
 <input type="number" (keyup)="change_num(comment_number.value)" #comment_number>

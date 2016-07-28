@@ -30,20 +30,21 @@ import 'rxjs/operator/map';
 import 'rxjs/operator/filter';
 http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filter-are-missing-from-a-form-inputs-obser
 */
-
 /*
 constructor(){};
 ngAfterViewInit(){};
+ngOnInit() {}
 */
-
 
   comment_input : string;
   comment_limit_subject = new Rx.Subject<number>();
 
- 
- items: FirebaseListObservable<any[]>;
+  
+  items: FirebaseListObservable<any[]>; 
+  items_query: FirebaseListObservable<any[]>; 
   constructor( af: AngularFire ) {
-     this.items = af.database.list('items', {
+     this.items = af.database.list('items');
+     this.items_query = af.database.list('items', {
       query: {
         limitToLast:this.comment_limit_subject
       }
@@ -61,8 +62,7 @@ ngAfterViewInit(){};
       return res.keyCode;}
       )
       .filter((value)=>{return value==13;})
-
-    comment_input$.subscribe(
+      comment_input$.subscribe(
       (value)=>{
         console.log(value);
         console.log(this.comment_input);
