@@ -10,3 +10,5 @@
 <div id="chat_comment_input">
   <input type="text" [(ngModel)]="comment_input">
 </div>
+
+<input type="number" (keyup)="change_num(comment_number.value)" #comment_number>

@@ -37,18 +37,22 @@ ngAfterViewInit(){};
 */
 
   comment_input : string;
+  comment_limit_subject = new Rx.Subject<number>();
 
  
  items: FirebaseListObservable<any[]>;
   constructor( af: AngularFire ) {
      this.items = af.database.list('items', {
       query: {
-        limitToLast:4
+        limitToLast:this.comment_limit_subject
       }
      });
+
    }
  
   ngAfterViewInit(){
+    this.comment_limit_subject.next(3);
+
     const comment_element = document.getElementById("chat_comment_input").getElementsByTagName("input")[0];
     const comment_input$ = Rx.Observable.fromEvent(comment_element, "keyup")
     .map((res: KeyboardEvent)=>{
@@ -71,6 +75,12 @@ ngAfterViewInit(){};
         console.log("completed")
       }
     );
+  }
+
+
+  change_num(num){
+    console.log("comment num"  , num);
+    this.comment_limit_subject.next(parseInt(num, 10));
   }
 
   ngOnInit() {
