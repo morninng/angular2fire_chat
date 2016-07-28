@@ -1,0 +1,30 @@
+■■■ステップ３のTypingの設定に関して■■■
+
+公式のガイドがおそらくアップデートされていない
+https://github.com/angular/angularfire2/blob/master/docs/1-install-and-setup.md
+
+
+typings search firebaseをみると、
+７月２３日に次のアップデートがあるのでそちらをもちいることにする。
+
+NAME                     SOURCE HOMEPAGE                                                          DESCRIPTION VERSIONS UPDATED                 
+firebase                 npm    https://www.npmjs.com/package/firebase                                        1        2016-07-23T03:37:00.000Z
+firebase                 dt     https://www.firebase.com/docs/javascript/firebase                             1        2016-04-12T12:51:05.000Z
+
+
+ typings install firebase   --source npm
+ 
+ 
+ https://github.com/angular/angularfire2/issues/333
+　　→こちらのワークアラウンドウェイは、もうつかえなくなってそう。 
+ 
+■■■問題■■■
+
+そのまま起動すると、typingのエラーにやはりなってしまう。
+なぜかはわからないが、angularfireのつかっているところを一度コメントアウトして元に戻すという作業をすると動作する。
+これは、一時的な処理だが、とりあえずこれで実行できるようにしておく。
+
+
+
+
+
