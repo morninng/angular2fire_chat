@@ -1,18 +1,31 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods,  defaultFirebase, FirebaseRef } from 'angularfire2';
-import {UserAuthService , user} from './../services/user-auth.service'
+import {UserAuthService } from './../services/user-auth.service'
+import {User} from './../interface/user';
+import * as Rx from "rxjs/Rx"
+
 
 @Component({
   moduleId: module.id,
   selector: 'app-header',
   templateUrl: 'header.component.html',
-  styleUrls: ['header.component.css'],
-  providers: [UserAuthService]
+  styleUrls: ['header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
-  own_user : user;
+  own_user : User;
+  own_user_subject$ : Rx.Observable<User>;
+
   constructor( private user_auth : UserAuthService) {
+
+    this.own_user_subject$ = user_auth.get_own_user_subject();
+    this.own_user_subject$.subscribe(
+      (value)=>{
+        console.log("osn user subscription", value);
+        this.own_user = value;
+      }
+    )
+
   }
 
   ngOnInit() {
@@ -20,15 +33,12 @@ export class HeaderComponent implements OnInit {
 
   login(){
     console.log("login button is clicked");
-    this.user_auth.authentication((own_user)=>{
-      this.own_user = own_user
-    });
+    this.user_auth.authentication();
   }
 
   logout(){
     console.log("logout button is clicked");
     this.user_auth.logout();
-
   }
 
 

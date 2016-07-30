@@ -1,38 +1,47 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods,  defaultFirebase, FirebaseRef } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods,  defaultFirebase, FirebaseRef, FirebaseAuth } from 'angularfire2';
+import {User} from './../interface/user';
+import * as Rx from "rxjs/Rx"
+
 
 @Injectable()
 export class UserAuthService {
 
-  own_user : user;
 
-  constructor(private af : AngularFire) {
-    
-   }
+  constructor(private af : AngularFire, private fire_auth : FirebaseAuth) {
 
-  logout = function(){
-    this.af.auth.logout();
-    this.own_user = null;
+    fire_auth
   }
 
 
-  authentication = function(callback){
+  own_user_subject = new Rx.Subject<number>();
+
+
+  logout = function(){
+    this.af.auth.logout();
+    this.own_user_subject.next(null);
+  }
+
+
+  get_own_user_subject = function(){
+    return this.own_user_subject;
+  }
+
+  authentication = function(){
     this.af.auth.login().then((result) => {
       console.log("after login");
       console.log(result);
-      this.own_user ={
+      let own_user ={
           id:  result.uid,
           name : result.auth.displayName, 
           pict_src : result.auth.photoURL
         }
-        console.log(this.own_user);
-        callback(this.own_user);
-        this.register_user(this.own_user);
+        this.own_user_subject.next(own_user);
+        this.register_user(own_user);
     });
   }
 
-  private register_user = function(user_oj : user){
-
+  private register_user = function(user_oj : User){
     let user_obj_db = {
       name : user_oj.name,
       pict_src :user_oj.pict_src
@@ -41,12 +50,5 @@ export class UserAuthService {
     user_firebase_ref.set(user_obj_db);
   }
 
-
 }
 
-
-export interface user{
-  id: string;
-  name: string;
-  pict_src: string;
-}
