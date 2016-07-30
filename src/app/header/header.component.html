@@ -16,11 +16,12 @@
 
         <!-- User Account: style can be found in dropdown.less -->
         <li class=" user user-menu">
-            <span *ngIf="userlogin">
-              <span >{{username}} bb </span>
+            <span *ngIf="own_user">
+              <span >{{own_user.name}} bb </span>
+              <input type="button" value="logout" (click)="logout()">
             </span>
-            <span *ngIf="!userlogin">
-                <input type="button" value="login" (click) = "login()">aa
+            <span *ngIf="!own_user">
+                <input type="button" value="login" (click) = "login()">
             </span>
 
         </li>

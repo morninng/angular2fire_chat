@@ -23,8 +23,15 @@ firebase                 dt     https://www.firebase.com/docs/javascript/firebas
 そのまま起動すると、typingのエラーにやはりなってしまう。
 なぜかはわからないが、angularfireのつかっているところを一度コメントアウトして元に戻すという作業をすると動作する。
 これは、一時的な処理だが、とりあえずこれで実行できるようにしておく。
+　→テストコードが問題だったので、テストコードをコメントアウトしたらとりあえず動いた。
 
 
+■■■■Facebookログインの追加
 
+cordova
+https://cordova.apache.org/
 
+cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="936776249767298" --variable APP_NAME="Angularfire2_practice"
+ →これはいらなかった。
+ 
 

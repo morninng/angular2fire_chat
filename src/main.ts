@@ -1,7 +1,7 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { AppComponent, environment } from './app/';
-import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
+import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders,AuthMethods  } from 'angularfire2';
 
 if (environment.production) {
   enableProdMode();
@@ -15,5 +15,9 @@ bootstrap(AppComponent,[
     authDomain: "fir-2practice.firebaseapp.com",
     databaseURL: "https://fir-2practice.firebaseio.com",
     storageBucket: "gs://fir-2practice.appspot.com"
+  }),
+  firebaseAuthConfig({
+    provider: AuthProviders.Facebook,
+    method: AuthMethods.Popup
   })
 ]);

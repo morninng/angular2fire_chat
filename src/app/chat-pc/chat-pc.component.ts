@@ -3,12 +3,12 @@ import * as Rx from "rxjs/Rx"
 
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
+
 @Component({
   moduleId: module.id,
   selector: 'app-chat-pc',
   templateUrl: 'chat-pc.component.html',
-  styleUrls: ['chat-pc.component.css'],
-
+  styleUrls: ['chat-pc.component.css']
 })
 
 export class ChatPcComponent implements OnInit, AfterViewInit {
