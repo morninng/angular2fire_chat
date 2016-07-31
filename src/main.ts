@@ -3,13 +3,14 @@ import { enableProdMode } from '@angular/core';
 import { AppComponent, environment } from './app/';
 import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders,AuthMethods  } from 'angularfire2';
 import {UserAuthService } from './app/services/user-auth.service'
+import { appRouterProviders } from './app/app.routes';
 
 if (environment.production) {
   enableProdMode();
 }
 
 bootstrap(AppComponent,[
-
+  appRouterProviders,
   FIREBASE_PROVIDERS,
   defaultFirebase({
     apiKey: "AIzaSyAd1FggQh-cpIRcUqHg7RQPrTCj5g-EzSc",
