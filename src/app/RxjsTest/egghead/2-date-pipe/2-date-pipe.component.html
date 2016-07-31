@@ -1,0 +1,6 @@
+
+ <h1> {{ clock | async | date:'yMMMMEEEEdjms'}}</h1>
+
+<br>
+ <input type="button" (click)="click$.next()" value="update current time">
+ <h1> {{ clock2 | async | date:'yMMMMEEEEdjms'}}</h1>

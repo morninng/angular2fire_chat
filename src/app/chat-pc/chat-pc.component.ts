@@ -75,7 +75,6 @@ ngOnInit() {}
   ngAfterViewInit(){
     this.comment_limit_subject.next(3);
 
-
     const comment_element = document.getElementById("chat_comment_input").getElementsByTagName("input")[0];
     const comment_input$ = Rx.Observable.fromEvent(comment_element, "keyup")
       .map((res: KeyboardEvent)=>{

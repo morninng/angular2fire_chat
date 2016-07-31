@@ -1,15 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods,  defaultFirebase, FirebaseRef } from 'angularfire2';
-import {UserAuthService } from './../services/user-auth.service'
+import {UserAuthService } from './../services/user-auth.service';
 import {User} from './../interface/user';
-import * as Rx from "rxjs/Rx"
+import * as Rx from "rxjs/Rx";
+import {ROUTER_DIRECTIVES} from'@angular/router'
 
 
 @Component({
   moduleId: module.id,
   selector: 'app-header',
   templateUrl: 'header.component.html',
-  styleUrls: ['header.component.css']
+  styleUrls: ['header.component.css'],
+  directives: [ROUTER_DIRECTIVES]
 })
 export class HeaderComponent implements OnInit {
 

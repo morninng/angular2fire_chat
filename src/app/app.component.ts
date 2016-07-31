@@ -11,5 +11,5 @@ import {ROUTER_DIRECTIVES} from'@angular/router'
 })
 
 export class AppComponent {
-  title = 'app works!';
+
 }

@@ -44,7 +44,10 @@ const barrels: string[] = [
   'app/shared',
   'app/chat-pc',
   'app/header',
-  'app/services'
+  'app/services',
+  'app/RxjsTest/egghead/1-observe-async',
+  'app/home',
+  'app/RxjsTest/egghead/2-date-pipe',
   /** @cli-barrel */
 ];
 
