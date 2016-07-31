@@ -1,7 +1,9 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 import { ChatPcComponent } from './chat-pc/chat-pc.component';
 import { ObserveAsyncComponent } from './RxjsTest/egghead/1-observe-async/1-observe-async.component';
-import { DatePipeComponent } from './RxjsTest/egghead/2-date-pipe/2-date-pipe.component';
+import { DatePipeComponent } from   './RxjsTest/egghead/2-date-pipe/2-date-pipe.component';
+import {SratwithScanComponent} from './RxjsTest/egghead/4-sratwith-scan/4-sratwith-scan.component';
+
 import {HomeComponent} from './home/home.component'
 
 
@@ -21,6 +23,10 @@ const routes: RouterConfig = [
   {
     path: 'egghead_date_pipe',
     component: DatePipeComponent
+  },
+  {
+   path: "egghead_startwith_scan",
+   component: SratwithScanComponent
   }
 ];
 

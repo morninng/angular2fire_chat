@@ -48,6 +48,7 @@ const barrels: string[] = [
   'app/RxjsTest/egghead/1-observe-async',
   'app/home',
   'app/RxjsTest/egghead/2-date-pipe',
+  'app/RxjsTest/egghead/4-sratwith-scan',
   /** @cli-barrel */
 ];
 

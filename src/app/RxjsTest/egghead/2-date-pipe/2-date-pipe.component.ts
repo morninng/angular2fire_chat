@@ -14,12 +14,12 @@ export class DatePipeComponent implements OnInit {
 
   clock = Observable.interval(1000).map(()=>{return new Date()})
 
-  clock2;
+  clock2 :Observable<Date>;
   click$ = new Subject();
 
   constructor() {
     this.clock2 = this.click$.map(()=>{return new Date()});
-    
+
    }
 
   ngOnInit() {
