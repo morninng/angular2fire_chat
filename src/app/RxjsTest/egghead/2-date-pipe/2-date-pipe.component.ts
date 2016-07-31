@@ -19,10 +19,7 @@ export class DatePipeComponent implements OnInit {
 
   constructor() {
     this.clock2 = this.click$.map(()=>{return new Date()});
-
    }
-
   ngOnInit() {
   }
-
 }

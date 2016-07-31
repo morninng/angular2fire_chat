@@ -7,14 +7,12 @@ import * as Rx from "rxjs/Rx"
 @Injectable()
 export class UserAuthService {
 
-
   constructor(private af : AngularFire, private fire_auth : FirebaseAuth) {
 
-    fire_auth
   }
 
 
-  own_user_subject = new Rx.Subject<number>();
+  own_user_subject = new Rx.ReplaySubject<any>(1);
 
 
   logout = function(){

@@ -15,7 +15,6 @@ import {User} from './../interface/user';
 
 export class ChatPcComponent implements OnInit, AfterViewInit {
 
-
 /*
  ブロックコメントを import文の横におくとエラーになるのでここに
 http://stackoverflow.com/questions/38586182/angular2-rc4-xhr-error-404-not-found-loading-traceur
@@ -30,8 +29,6 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
 
   comment_input : string;
   comment_limit_subject = new Rx.Subject<number>();
-
-
   
   chat: FirebaseListObservable<any[]>; 
   chat_query: FirebaseListObservable<any[]>; 
@@ -64,7 +61,7 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
     this.own_user_subject$ = user_auth.get_own_user_subject();
     this.own_user_subject$.subscribe(
       (value)=>{
-        console.log("osn user subscription", value);
+        console.log("own user subscription", value);
         this.own_user = value;
       }
     )
@@ -103,7 +100,6 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
       }
     );
   }
-
 
   change_num(num){
     console.log("comment num"  , num);
