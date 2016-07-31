@@ -27,11 +27,6 @@ import 'rxjs/operator/map';
 import 'rxjs/operator/filter';
 http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filter-are-missing-from-a-form-inputs-obser
 */
-/*
-constructor(){};
-ngAfterViewInit(){};
-ngOnInit() {}
-*/
 
   comment_input : string;
   comment_limit_subject = new Rx.Subject<number>();
@@ -43,24 +38,28 @@ ngOnInit() {}
   user_list_obj$: Rx.Observable<any>;
   own_user_subject$ : Rx.Observable<User>;
   own_user : User;
-  user_data :any;
+  user_data :any = {};
 
-  constructor( private af: AngularFire, private user_auth : UserAuthService, private user_list : UserListService ) {
+  constructor( private af: AngularFire, private user_auth : UserAuthService, private user_list_service : UserListService ) {
      this.chat = af.database.list('chat');
      this.chat_query = af.database.list('chat', {
       query: {
         limitToLast:this.comment_limit_subject
       }
-     });
+     })
+     this.chat_query.subscribe((snapshots)=>{
+       snapshots.forEach((chat_data) => {
+         let userid = chat_data.id;
+         user_list_service.retrieve_user(userid);
+       })
+     })
+     const user_sub = user_list_service.get_user_subject();
+     user_sub.subscribe(
+       (user_data)=>{
+         this.user_data  = user_data;
+       }
+     )
 
-     user_list.loadUsers()
-      .subscribe(
-        (res)=>{
-          this.user_data = res;
-        },
-        (error)=>{console.log(error);},
-        ()=>{console.log("completed")}
-      );
 
     this.own_user_subject$ = user_auth.get_own_user_subject();
     this.own_user_subject$.subscribe(
