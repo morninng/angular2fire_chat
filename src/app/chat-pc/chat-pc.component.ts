@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import * as Rx from "rxjs/Rx"
 import {UserAuthService } from './../services/user-auth.service'
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
@@ -20,10 +20,6 @@ export class ChatPcComponent implements OnInit, AfterViewInit {
 http://stackoverflow.com/questions/38586182/angular2-rc4-xhr-error-404-not-found-loading-traceur
 http://stackoverflow.com/questions/37179236/angular2-error-at-startup-of-the-app-http-localhost3000-traceur-404-not-fo
 
-import { Observable }     from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent'
-import 'rxjs/operator/map';
-import 'rxjs/operator/filter';
 http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filter-are-missing-from-a-form-inputs-obser
 */
 
@@ -31,35 +27,37 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
   comment_limit_subject = new Rx.Subject<number>();
   
   chat: FirebaseListObservable<any[]>; 
-  chat_query: FirebaseListObservable<any[]>; 
-  user_list_obj$: Rx.Observable<any>;
-  own_user_subject$ : Rx.Observable<User>;
+  chat_query$: FirebaseListObservable<any[]>;
   own_user : User;
   user_data :any = {};
 
+
   constructor( private af: AngularFire, private user_auth : UserAuthService, private user_list_service : UserListService ) {
      this.chat = af.database.list('chat');
-     this.chat_query = af.database.list('chat', {
+     this.chat_query$ = af.database.list('chat', {
       query: {
         limitToLast:this.comment_limit_subject
       }
      })
-     this.chat_query.subscribe((snapshots)=>{
+     this.chat_query$.subscribe((snapshots)=>{
        snapshots.forEach((chat_data) => {
          let userid = chat_data.id;
          user_list_service.retrieve_user(userid);
        })
      })
-     const user_sub = user_list_service.get_user_subject();
-     user_sub.subscribe(
-       (user_data)=>{
-         this.user_data  = user_data;
+
+    const user_sub : Rx.ReplaySubject<any> = user_list_service.get_user_subject_2();
+    user_sub.subscribe(
+       (in_user_data)=>{
+         console.log("this.user_sub_2$ subscribe", in_user_data);
+         this.user_data  = in_user_data;
        }
-     )
+      )
 
 
-    this.own_user_subject$ = user_auth.get_own_user_subject();
-    this.own_user_subject$.subscribe(
+
+    const own_user_subject$ : Rx.Observable<User> = user_auth.get_own_user_subject();
+    own_user_subject$.subscribe(
       (value)=>{
         console.log("own user subscription", value);
         this.own_user = value;

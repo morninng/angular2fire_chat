@@ -12,7 +12,8 @@ export class UserAuthService {
   }
 
 
-  own_user_subject = new Rx.ReplaySubject<any>(1);
+  own_user_subject = new Rx.ReplaySubject<any>(1)
+                      .do((value)=>{console.log("subject do", value)});
 
 
   logout = function(){
