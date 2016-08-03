@@ -10,6 +10,8 @@ import {HomeComponent} from './home/home.component'
 
 import {DragDropComponent} from './RxjsTest/Lig_sample/drag-drop/drag-drop.component';
 
+import {DatabindComponent} from './RxjsTest/Lig_sample/databind/databind.component';
+
 const routes: RouterConfig = [
   {
     path: '',
@@ -46,6 +48,10 @@ const routes: RouterConfig = [
   {
     path: "Lig_drag_drop",
     component: DragDropComponent
+  },
+  {
+    path: "Lig_data_bind",
+    component: DatabindComponent
   }
 ];
 
