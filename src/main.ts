@@ -5,6 +5,7 @@ import { FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig, AuthProviders,
 import {UserAuthService } from './app/services/user-auth.service'
 import { appRouterProviders } from './app/app.routes';
 
+
 if (environment.production) {
   enableProdMode();
 }
