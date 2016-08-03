@@ -30,6 +30,7 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
   chat_query$: FirebaseListObservable<any[]>;
   own_user : User;
   user_data :any = {};
+  comment_num = 6;
 
 
   constructor( private af: AngularFire, private user_auth : UserAuthService, private user_list_service : UserListService ) {
@@ -44,17 +45,15 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
          let userid = chat_data.id;
          user_list_service.retrieve_user(userid);
        })
+       this.scrollToBottom();
      })
 
     const user_sub : Rx.ReplaySubject<any> = user_list_service.get_user_subject_2();
     user_sub.subscribe(
        (in_user_data)=>{
-         console.log("this.user_sub_2$ subscribe", in_user_data);
          this.user_data  = in_user_data;
        }
       )
-
-
 
     const own_user_subject$ : Rx.Observable<User> = user_auth.get_own_user_subject();
     own_user_subject$.subscribe(
@@ -63,11 +62,21 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
         this.own_user = value;
       }
     )
+
+   }
+   private scrollToBottom = function(){
+
+    setTimeout(
+      ()=>{
+        const chatbox_element = document.getElementsByClassName('direct-chat-messages')[0];
+        chatbox_element.scrollTop = chatbox_element.scrollHeight;
+      },500)
+
    }
  
    
   ngAfterViewInit(){
-    this.comment_limit_subject.next(3);
+    this.comment_limit_subject.next(this.comment_num);
 
     const comment_element = document.getElementById("chat_comment_input").getElementsByTagName("input")[0];
     const comment_input$ = Rx.Observable.fromEvent(comment_element, "keyup")
@@ -97,6 +106,25 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
         console.log("completed")
       }
     );
+
+    const chatbox_element = document.getElementsByClassName('direct-chat-messages')[0];
+    const scroll$ = Rx.Observable.fromEvent(chatbox_element, "scroll")
+      .filter( (box_scroll : UIEvent ) => {
+        //console.log("scroll top", box_scroll.srcElement.scrollTop);
+        //console.log("scroll height", box_scroll.srcElement.scrollHeight);
+        if(box_scroll.srcElement.scrollTop == 0){
+          return true;
+        }else{
+          return false;
+        }
+    })
+
+    scroll$.subscribe(
+      ()=>{
+        this.comment_num += 3
+        this.comment_limit_subject.next(this.comment_num);
+      }
+    )
   }
 
   change_num(num){

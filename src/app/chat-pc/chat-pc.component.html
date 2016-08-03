@@ -11,7 +11,7 @@
     <div class="box-body">
 
 
-      <div class = "direct-chat-messages" style="height:100px;">
+      <div class = "direct-chat-messages" style="height:300px;">
 
 
       <span *ngFor="let chat of chat_query$ | async">
@@ -19,9 +19,10 @@
         <span *ngIf="own_user?.id != chat.id">
           <div class="direct-chat-msg">
             <div class="direct-chat-info clearfix">
-              <span class="direct-chat-name pull-left"> -- {{ (user_list_obj$ | async)?.$key }}</span>
-              <span *ngIf="user_data">
-                  <span>{{user_data[chat.id]?.name}}</span> 
+              <span class="direct-chat-name pull-left">
+                <span *ngIf="user_data">
+                    <span>{{user_data[chat.id]?.name}}</span> 
+                </span>
               </span>
             </div>
               <span *ngIf="user_data">
@@ -37,9 +38,15 @@
         <span *ngIf="own_user?.id == chat.id">
           <div class="direct-chat-msg right">
             <div class="direct-chat-info clearfix">
-              <span class="direct-chat-name pull-right">{{user_data[chat.id]?.name}}</span>
+              <span class="direct-chat-name pull-right">
+                <span *ngIf="user_data">
+                    <span>{{user_data[chat.id]?.name}}</span> 
+                </span>
+              </span>
             </div>
-            <img class="direct-chat-img" src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-1/p160x160/12341602_953593204721655_7227562974230394333_n.jpg?oh=c1e069b879fcc8ce9143d87654516c61&amp;oe=5814739C">
+            <span *ngIf="user_data">
+             <img class="direct-chat-img" src="{{user_data[chat.id]?.pict_src}}">
+            </span>
             <div class="direct-chat-text">
               {{chat.body}}
             </div>

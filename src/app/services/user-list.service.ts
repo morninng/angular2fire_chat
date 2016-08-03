@@ -40,7 +40,6 @@ export class UserListService {
                     name: curr.name,
                     pict_src : curr.pict_src
                   }
-                  console.log("acc", obj);
                   return obj;
                  }
                 if(!curr.id || acc[curr.id]){
@@ -51,7 +50,6 @@ export class UserListService {
                     pict_src : curr.pict_src
                   }
                   acc[curr.id] = obj;
-                  console.log("acc", acc);
                   return acc;
                 }
               })
@@ -71,7 +69,6 @@ export class UserListService {
     this.af.database.object('/users/' + userid)
       .subscribe(
         (user_obj) =>{
-          console.log("user data", user_obj);
            let user_data :User = {
              id: user_obj.$key,
              name: user_obj.name,
