@@ -8,6 +8,7 @@ import {MulticastComponent} from './RxjsTest/my_check/multicast/multicast.compon
 import {FromMultipleButtonsComponent} from './RxjsTest/my_check/from-multiple-buttons/from-multiple-buttons.component'
 import {HomeComponent} from './home/home.component'
 
+import {DragDropComponent} from './RxjsTest/Lig_sample/drag-drop/drag-drop.component';
 
 const routes: RouterConfig = [
   {
@@ -41,6 +42,10 @@ const routes: RouterConfig = [
   {
     path: "multicast",
     component: MulticastComponent
+  },
+  {
+    path: "Lig_drag_drop",
+    component: DragDropComponent
   }
 ];
 

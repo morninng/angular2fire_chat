@@ -52,6 +52,7 @@ const barrels: string[] = [
   'app/RxjsTest/my_check/subject-observabel-test',
   'app/RxjsTest/my_check/multicast',
   'app/RxjsTest/my_check/from-multiple-buttons',
+  'app/RxjsTest/Lig_sample/drag-drop',
   /** @cli-barrel */
 ];
 

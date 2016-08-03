@@ -107,6 +107,8 @@ http://stackoverflow.com/questions/34394708/in-angular-2-0-0-beta-0-map-and-filt
       }
     );
 
+
+
     const chatbox_element = document.getElementsByClassName('direct-chat-messages')[0];
     const scroll$ = Rx.Observable.fromEvent(chatbox_element, "scroll")
       .filter( (box_scroll : UIEvent ) => {
